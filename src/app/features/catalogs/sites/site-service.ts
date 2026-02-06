@@ -18,7 +18,11 @@ export class SiteService {
     return this.http.post(`${environment.apiUrl}/sites`, site);
   }
 
-  update(site: ISite) {
-    return this.http.put(`${environment.apiUrl}/sites/${site.id}`, site);
+  update(id: string, site: { name: string; active: boolean }) {
+    return this.http.put(`${environment.apiUrl}/sites/${id}`, site);
+  }
+
+  delete(id: string) {
+    return this.http.delete(`${environment.apiUrl}/sites/${id}`);
   }
 }

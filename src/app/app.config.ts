@@ -4,7 +4,7 @@ import { provideRouter } from '@angular/router';
 import { providePrimeNG } from 'primeng/config';
 import { routes } from './app.routes';
 import { JabilPreset } from './app-preset';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { notificationInterceptor } from './core/services/interceptors/notification.interceptor';
 
@@ -21,6 +21,7 @@ export const appConfig: ApplicationConfig = {
       },
     }),
     MessageService,
+    ConfirmationService,
     provideHttpClient(withInterceptors([loaderInterceptor, notificationInterceptor])),
   ],
 };

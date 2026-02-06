@@ -1,3 +1,5 @@
+import { Dashboard } from './../../dashboard/dashboard';
+import { ConfirmationDialogService } from './../../../core/services/confirmation.dialog.service';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { Component, computed, inject, resource, signal } from '@angular/core';
 import { SiteService } from './site-service';
@@ -6,7 +8,6 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { SiteForm } from './components/site-form/site-form';
 import { ISite } from './ISite.interface';
-import { NotificationService } from '../../../core/services/notification.service';
 
 @Component({
   selector: 'app-sites',
@@ -16,7 +17,7 @@ import { NotificationService } from '../../../core/services/notification.service
 })
 export class Sites {
   siteService = inject(SiteService);
-
+  confirmationService = inject(ConfirmationDialogService);
   siteResource = rxResource({
     stream: () => this.siteService.get(),
     defaultValue: [],
@@ -38,7 +39,8 @@ export class Sites {
   handleSave(site: ISite) {
     let request;
     if (this.isEdit()) {
-      request = this.siteService.update(site);
+      const { id, name, active } = site;
+      request = this.siteService.update(id, { name, active });
     } else {
       const { name } = site;
       request = this.siteService.create({ name });
@@ -47,15 +49,37 @@ export class Sites {
     request.subscribe({
       next: () => {
         this.siteResource.reload();
-        const message = this.isEdit()
-          ? 'Site was updated successfully'
-          : 'Site was created succssfully';
       },
       error: (error) => {
         console.log(error);
       },
       complete: () => {
         this.displayModal.set(false);
+      },
+    });
+  }
+
+  handleDelete(id: string) {
+    console.log(id);
+    this.confirmationService.confirm({
+      message: 'Do you want to delete this record?',
+      header: 'Delete site',
+      acceptLabel: 'Delete',
+      acceptIcon: 'pi pi-info-circle',
+      severity: 'danger',
+      accept: () => {
+        const request = this.siteService.delete(id);
+        request.subscribe({
+          next: () => {
+            this.siteResource.reload();
+          },
+          error: (error) => {
+            console.log(error);
+          },
+          complete: () => {
+            this.displayModal.set(false);
+          },
+        });
       },
     });
   }

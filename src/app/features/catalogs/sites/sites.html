@@ -12,6 +12,8 @@
 <app-site-table
   [sites]="siteResource.value()"
   [loading]="siteResource.isLoading()"
+  (onDelete)="handleDelete($event)"
+  (onEdit)="openEdit($event)"
 ></app-site-table>
 <span>{{ siteResource.error() }}</span>
 

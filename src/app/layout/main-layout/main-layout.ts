@@ -10,7 +10,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
 import { LoadingSpiner } from '../../shared/components/loading-spiner/loading-spiner';
-
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 @Component({
   selector: 'app-main-layout',
   imports: [
@@ -23,7 +23,8 @@ import { LoadingSpiner } from '../../shared/components/loading-spiner/loading-sp
     InputTextModule,
     MessageModule,
     ToastModule,
-    LoadingSpiner
+    LoadingSpiner,
+    ConfirmDialogModule,
   ],
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.scss',
