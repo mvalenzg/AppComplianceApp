@@ -1,0 +1,30 @@
+<div class="flex flex-row justify-content-between">
+  <h1>Sites</h1>
+  <p-button
+    icon="pi pi-plus"
+    severity="primary"
+    [rounded]="true"
+    [text]="true"
+    [raised]="true"
+    (onClick)="openCreate()"
+  />
+</div>
+<app-site-table
+  [sites]="siteResource.value()"
+  [loading]="siteResource.isLoading()"
+></app-site-table>
+<span>{{ siteResource.error() }}</span>
+
+<p-dialog
+  [(visible)]="displayModal"
+  [header]="isEdit() ? 'Edit Site' : 'New Site'"
+  [ariaModal]="true"
+  [style]="{ width: '25rem' }"
+>
+  <app-site-form
+    [siteData]="selectedSite()"
+    (onSave)="handleSave($event)"
+    (onCancel)="displayModal.set(false)"
+  >
+  </app-site-form>
+</p-dialog>

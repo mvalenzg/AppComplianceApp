@@ -1,1 +1,23 @@
-/* You can add global styles to this file, and also import other style files */
+/* Importar PrimeFlex si no lo hiciste en el angular.json */
+@import "primeflex/primeflex.css";
+@import 'primeicons/primeicons.css';
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-family);
+}
+
+/* Ajuste para que el PanelMenu se vea como un Sidenav moderno */
+.p-panelmenu .p-panelmenu-header > a {
+    background: transparent;
+    border: none;
+    padding: 1rem;
+    &:hover { background: var(--surface-hover); }
+}
+
+.p-panelmenu .p-panelmenu-content {
+    background: transparent;
+    border: none;
+}
