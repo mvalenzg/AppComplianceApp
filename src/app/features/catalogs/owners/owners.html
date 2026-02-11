@@ -1,1 +1,32 @@
-<p>owners works!</p>
+<div class="flex flex-row justify-content-between">
+  <h1>Devs</h1>
+  <p-button
+    icon="pi pi-plus"
+    severity="primary"
+    [rounded]="true"
+    [text]="true"
+    [raised]="true"
+    (onClick)="openCreate()"
+  />
+</div>
+<app-owner-table
+  [owners]="ownerResource.value()"
+  [loading]="ownerResource.isLoading()"
+  (onDelete)="handleDelete($event)"
+  (onEdit)="openEdit($event)"
+></app-owner-table>
+<span>{{ ownerResource.error() }}</span>
+
+<p-dialog
+  [(visible)]="displayModal"
+  [header]="isEdit() ? 'Edit Dev' : 'New Dev'"
+  [ariaModal]="true"
+  [style]="{ width: '25rem' }"
+>
+  <app-owner-form
+    [ownerData]="selectedSite()"
+    (onSave)="handleSave($event)"
+    (onCancel)="displayModal.set(false)"
+  >
+  </app-owner-form>
+</p-dialog>

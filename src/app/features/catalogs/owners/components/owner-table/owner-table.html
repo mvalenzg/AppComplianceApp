@@ -1,12 +1,12 @@
 <p-table
   #dt1
   dataKey="id"
-  [value]="sites()"
+  [value]="owners()"
   stripedRows
   [paginator]="true"
   [rows]="10"
   [rowsPerPageOptions]="[10, 25, 50, 100]"
-  [globalFilterFields]="['name']"
+  [globalFilterFields]="['fullName']"
   [tableStyle]="{ 'min-width': '50rem' }"
 >
   <ng-template #caption>
@@ -32,27 +32,27 @@
       <th>Actions</th>
     </tr>
   </ng-template>
-  <ng-template pTemplate="body" let-site>
+  <ng-template pTemplate="body" let-owner>
     <tr>
       <td>
         @if (loading()) {
           <p-skeleton />
         } @else {
-          {{ site.id }}
+          {{ owner.id }}
         }
       </td>
       <td>
         @if (loading()) {
           <p-skeleton />
         } @else {
-          {{ site.name }}
+          {{ owner.fullName }}
         }
       </td>
       <td>
         @if (loading()) {
           <p-skeleton />
         } @else {
-          <p-tag [value]="site.active | statusValue" [severity]="site.active | severity" />
+          <p-tag [value]="owner.active | statusValue" [severity]="owner.active | severity" />
         }
       </td>
       <td>
@@ -63,13 +63,13 @@
             icon="pi pi-pencil"
             aria-label="Edit"
             severity="info"
-            (onClick)="confirmEdit(site)"
+            (onClick)="confirmEdit(owner)"
           />
           <p-button
             icon="pi pi-trash"
             aria-label="Save"
             severity="danger"
-            (onClick)="confirmDelete(site.id)"
+            (onClick)="confirmDelete(owner.id)"
           />
         }
       </td>
@@ -77,7 +77,7 @@
   </ng-template>
   <ng-template #emptymessage>
     <tr>
-      <td colspan="7">No sites found.</td>
+      <td colspan="7">No owners found.</td>
     </tr>
   </ng-template>
 </p-table>

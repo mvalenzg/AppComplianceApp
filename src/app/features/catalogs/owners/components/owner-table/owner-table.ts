@@ -1,16 +1,16 @@
+import { IOwner } from './../IOwner.interface';
 import { Component, input, output, signal } from '@angular/core';
-import { Table, TableModule } from 'primeng/table';
-import { SkeletonModule } from 'primeng/skeleton';
-import { ISite } from '../../ISite.interface';
 import { ButtonModule } from 'primeng/button';
-import { TagModule } from 'primeng/tag';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
-import { SeverityPipe, StatusValuePipe } from '../../../../../core';
+import { SkeletonModule } from 'primeng/skeleton';
+import { Table, TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import { StatusValuePipe, SeverityPipe } from '../../../../../core';
 
 @Component({
-  selector: 'app-site-table',
+  selector: 'app-owner-table',
   imports: [
     TableModule,
     SkeletonModule,
@@ -22,18 +22,18 @@ import { SeverityPipe, StatusValuePipe } from '../../../../../core';
     StatusValuePipe,
     SeverityPipe,
   ],
-  templateUrl: './site-table.html',
-  styleUrl: './site-table.scss',
+  templateUrl: './owner-table.html',
+  styleUrl: './owner-table.scss',
 })
-export class SiteTable {
-  sites = input<ISite[]>([]);
+export class OwnerTable {
+  owners = input<IOwner[]>([]);
   loading = input<boolean>();
   onDelete = output<string>();
-  onEdit = output<ISite>();
-  searchValue = signal(''); //no estoy seguro
+  onEdit = output<IOwner>();
+  searchValue = signal('');
 
-  confirmEdit(site: ISite) {
-    this.onEdit.emit(site);
+  confirmEdit(owner: IOwner) {
+    this.onEdit.emit(owner);
   }
 
   confirmDelete(id: string) {

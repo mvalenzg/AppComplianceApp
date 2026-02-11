@@ -46,7 +46,7 @@ export class MainLayout implements OnInit {
         label: 'Catálogos',
         icon: 'pi pi-list',
         items: [
-          { label: 'Sitios', icon: 'pi pi-factory', routerLink: '/catalogs/sites' },
+          { label: 'Sitios', icon: 'pi pi-building', routerLink: '/catalogs/sites' },
           { label: 'Devs', icon: 'pi pi-users', routerLink: '/catalogs/devs' },
         ],
       },
