@@ -9,12 +9,16 @@
     (onClick)="openCreate()"
   />
 </div>
-<app-site-table
-  [sites]="siteResource.value()"
-  [loading]="siteResource.isLoading()"
-  (onDelete)="handleDelete($event)"
-  (onEdit)="openEdit($event)"
-></app-site-table>
+@defer (when !siteResource.isLoading()) {
+  <app-site-table
+    [sites]="siteResource.value()"
+    [loading]="siteResource.isLoading()"
+    (onDelete)="handleDelete($event)"
+    (onEdit)="openEdit($event)"
+  ></app-site-table>
+} @placeholder {
+  <div class="p-4">Cargando datos...</div>
+}
 <span>{{ siteResource.error() }}</span>
 
 <p-dialog

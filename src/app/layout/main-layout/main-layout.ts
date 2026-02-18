@@ -11,6 +11,9 @@ import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
 import { LoadingSpiner } from '../../shared/components/loading-spiner/loading-spiner';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { Sidebar } from '../sidebar';
+import { Header } from '../header';
+import { Footer } from '../footer/footer';
 @Component({
   selector: 'app-main-layout',
   imports: [
@@ -25,6 +28,9 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     ToastModule,
     LoadingSpiner,
     ConfirmDialogModule,
+    Sidebar,
+    Header,
+    Footer,
   ],
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.scss',
@@ -35,12 +41,11 @@ export class MainLayout implements OnInit {
 
   ngOnInit() {
     this.menuItems = [
-      { label: 'Dashboard', icon: 'pi pi-home', routerLink: '/dashboard', expanded: false },
       {
-        label: 'Aplicaciones',
-        icon: 'pi pi-th-large',
-        routerLink: '/applications',
-        expanded: false,
+        label: 'Dashboard', icon: 'pi pi-chart-scatter', routerLink: '/dashboard' ,
+      },
+      {
+        label: 'Aplicaciones', icon: 'pi pi-th-large', routerLink: '/applications',
       },
       {
         label: 'Catálogos',

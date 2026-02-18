@@ -1,33 +1,7 @@
-<div class="flex flex-column h-screen">
-  <p-toolbar class="bg-primary border-none border-noround px-4 py-2 shadow-2">
-    <div class="p-toolbar-group-start">
-      <i class="pi pi-shield text-white text-2xl mr-2"></i>
-      <span class="text-white font-bold text-xl">App Compliance Tracking</span>
-    </div>
-    <div class="p-toolbar-group-end">
-      <span class="p-input-icon-left mr-3">
-        <i class="pi pi-search mr-2"></i>
-        <input pInputText type="text" placeholder="Buscar Aplicación..." class="p-inputtext-sm" />
-      </span>
-      <p-avatar icon="pi pi-user" shape="circle" class="bg-primary-reverse text-primary shadow-1" />
-    </div>
-  </p-toolbar>
-
-  <div class="flex flex-row flex-1 overflow-hidden">
-    <aside class="w-18rem flex flex-column surface-section border-right-1 surface-border shadow-1">
-      <div class="flex-1 overflow-y-auto">
-        <p-panelMenu
-          [model]="menuItems"
-          [multiple]="false"
-          class="w-full border-none"
-        ></p-panelMenu>
-      </div>
-
-      <div class="p-3 border-top-1 surface-border bg-surface-50">
-        <div class="text-xs font-medium text-500">v1.0.0-beta</div>
-      </div>
-    </aside>
-
+<div class="flex h-screen overflow-hidden">
+  <app-sidebar [menuItems]="menuItems"></app-sidebar>
+  <div class="flex flex-column flex-1 overflow-hidden">
+    <app-header></app-header>
     <main class="flex-1 overflow-y-auto bg-surface-100 p-4">
       <app-loading-spiner />
       <p-confirmDialog />
@@ -36,5 +10,6 @@
         <router-outlet></router-outlet>
       </div>
     </main>
+    <app-footer></app-footer>
   </div>
 </div>

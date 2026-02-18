@@ -1,6 +1,6 @@
 import { loaderInterceptor } from './core/services/interceptors/loader.interceptor';
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withViewTransitions } from '@angular/router';
 import { providePrimeNG } from 'primeng/config';
 import { routes } from './app.routes';
 import { JabilPreset } from './app-preset';
@@ -11,7 +11,7 @@ import { notificationInterceptor } from './core/services/interceptors/notificati
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes),
+    provideRouter(routes, withViewTransitions()),
     providePrimeNG({
       theme: {
         preset: JabilPreset,
