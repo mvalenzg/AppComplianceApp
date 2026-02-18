@@ -9,35 +9,46 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <style>
-      .splash-container {
+      #app-splash {
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
+        inset: 0;
+        background: #002b49;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        transition: opacity 0.4s ease;
+      }
+
+      #app-splash.hide {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .splash-content {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        background-color: #f8f9fa; /* Color de fondo */
-        z-index: 9999;
+        background-color: whitesmoke;
+        color: #002b49;
+        width: 30%;
+        height: 45%;
+        border-radius: 5%;
       }
-
-      .spinner {
-        width: 50px;
+      img {
         height: 50px;
-        border: 5px solid #ddd;
-        border-top: 5px solid #3498db;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
       }
 
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
-        }
+      .loader {
+        width: 90px;
+        height: 14px;
+        background: radial-gradient(circle closest-side, #002b49 92%, #0000) calc(100% / 3) 0 /
+          calc(100% / 4) 100%;
+        animation: l2 0.5s infinite linear;
+      }
+      @keyframes l2 {
         100% {
-          transform: rotate(360deg);
+          background-position: 0 0;
         }
       }
     </style>
@@ -48,9 +59,13 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   </head>
   <body>
-    <div id="global-splash" class="splash-container">
-      <div class="spinner"></div>
-    </div>
     <app-root> </app-root>
+    <div id="app-splash">
+      <div class="splash-content">
+        <img src="img/logo-jabil@2x.png" alt="Jabil logo" />
+        <h1>App Compliance Tracking</h1>
+        <div class="loader"></div>
+      </div>
+    </div>
   </body>
 </html>

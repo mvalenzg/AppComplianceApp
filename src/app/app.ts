@@ -1,5 +1,6 @@
-import { Component, DOCUMENT, Inject, OnInit, signal } from '@angular/core';
+import { AfterViewInit, Component, DOCUMENT, inject, Inject, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { SplashService } from './core/services/splash.service';
 
 @Component({
   selector: 'app-root',
@@ -7,17 +8,6 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
-export class App implements OnInit {
+export class App {
   protected readonly title = signal('app-compliance');
-
-  constructor(@Inject(DOCUMENT) private document: Document) {}
-
-  ngOnInit(): void {
-    const splash = this.document.getElementById('global-splash');
-
-    if (splash) {
-      splash.style.opacity = '0';
-      setTimeout(() => splash.remove(), 500);
-    }
-  }
 }
