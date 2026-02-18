@@ -17,19 +17,19 @@ export class ConfirmationDialogService {
     reject?: () => void;
   }) {
     this.confirmationService.confirm({
-      header: options.header ?? '¿Estás seguro?',
+      header: options.header ?? 'are you sure?',
       message: options.message,
       icon: options.acceptIcon ?? 'pi pi-exclamation-triangle',
       closable: true,
       modal: true,
-      rejectLabel: 'Cancelar',
+      rejectLabel: 'Cancel',
       rejectButtonProps: {
-        label: 'Cancelar',
+        label: 'Cancel',
         severity: 'secondary',
         outlined: true,
       },
       acceptButtonProps: {
-        label: options.acceptLabel ?? 'Aceptar',
+        label: options.acceptLabel ?? 'Accept',
         severity: options.severity ?? 'danger', // Por defecto danger para borrados
       },
       accept: () => options.accept(),
