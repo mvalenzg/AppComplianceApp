@@ -48,12 +48,9 @@ describe('Sites', () => {
   it('should pass sites to SiteTable', () => {
     fixture.detectChanges();
 
-    // Buscamos el componente hijo en el DOM
     const tableDebugElement = fixture.nativeElement.querySelector('app-site-table');
     expect(tableDebugElement).toBeTruthy();
 
-    // Si quieres ser más estricto y ver si los datos llegaron al @Input
-    // podemos usar ng-reflect o acceder a las propiedades del elemento
     expect(tableDebugElement.innerHTML).toContain('CVG');
   });
 });

@@ -1,7 +1,6 @@
-import { Dashboard } from './../../dashboard/dashboard';
 import { ConfirmationDialogService } from './../../../core/services/confirmation.dialog.service';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { Component, computed, inject, resource, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { SiteService } from './site-service';
 import { SiteTable } from './components';
 import { ButtonModule } from 'primeng/button';
