@@ -24,7 +24,7 @@
   [style]="{ width: '25rem' }"
 >
   <app-owner-form
-    [ownerData]="selectedSite()"
+    [ownerData]="selectedOwner()"
     (onSave)="handleSave($event)"
     (onCancel)="displayModal.set(false)"
   >

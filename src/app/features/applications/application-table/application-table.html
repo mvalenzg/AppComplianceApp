@@ -1,0 +1,66 @@
+<p-table
+  #dt1
+  dataKey="id"
+  [value]="apps()"
+  stripedRows
+  [paginator]="true"
+  [rows]="10"
+  [rowsPerPageOptions]="[10, 25, 50, 100]"
+  [globalFilterFields]="['name']"
+  [tableStyle]="{ 'min-width': '50rem' }"
+>
+  <ng-template #caption>
+    <div class="flex">
+      <p-iconfield iconPosition="left" class="ml-auto">
+        <p-inputicon>
+          <i class="pi pi-search"></i>
+        </p-inputicon>
+        <input
+          pInputText
+          type="text"
+          (input)="dt1.filterGlobal($event.target.value, 'contains')"
+          placeholder="Search keyword"
+        />
+      </p-iconfield>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th id="app">Application</th>
+      <th id="site">Site</th>
+      <th id="owner">Owner</th>
+      <th id="repo">Repository</th>
+      <th id="docs">Documentation</th>
+      <th id="devops">DevOps</th>
+      <th id="actions">Actions</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-app>
+    @if (loading()) {
+      <tr>
+        <td><p-skeleton width="90%" height="1rem" /></td>
+        <td><p-skeleton width="80%" height="1rem" /></td>
+        <td><p-skeleton width="70%" height="1rem" /></td>
+        <td><p-skeleton width="60%" height="1rem" /></td>
+        <td><p-skeleton width="50%" height="1rem" /></td>
+        <td><p-skeleton width="40%" height="1rem" /></td>
+        <td><p-skeleton width="30%" height="1rem" /></td>
+      </tr>
+    } @else {
+      <tr>
+        <td>{{ app.name }}</td>
+        <td>{{ app.site.name }}</td>
+        <td>{{ app.owner.fullName }}</td>
+        <td>
+          <a href="{{ app.repoUrl }}">{{ app.name }}</a>
+        </td>
+        <td>{{app.hasBrd | docs:'brd'}}</td>
+      </tr>
+    }
+  </ng-template>
+  <ng-template #emptymessage>
+    <tr>
+      <td colspan="7">No sites found.</td>
+    </tr>
+  </ng-template>
+</p-table>

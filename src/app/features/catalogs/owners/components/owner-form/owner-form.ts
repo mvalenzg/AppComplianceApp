@@ -21,7 +21,7 @@ export class OwnerForm {
 
   ownerForm = this.fb.group({
     id: [''],
-    name: ['', Validators.required, Validators.maxLength(100)],
+    fullName: ['', Validators.required, Validators.maxLength(100)],
     active: [true],
   });
 
@@ -33,7 +33,7 @@ export class OwnerForm {
   }
 
   onSubmit() {
-    const site = this.ownerForm.getRawValue() as IOwner;
-    this.onSave.emit(site);
+    const owner = this.ownerForm.getRawValue() as IOwner;
+    this.onSave.emit(owner);
   }
 }

@@ -20,27 +20,27 @@ export class Owners {
     defaultValue: [],
   });
   displayModal = signal(false);
-  selectedSite = signal<IOwner | null>(null);
-  isEdit = computed(() => !!this.selectedSite());
+  selectedOwner = signal<IOwner | null>(null);
+  isEdit = computed(() => !!this.selectedOwner());
 
   openCreate() {
-    this.selectedSite.set(null);
+    this.selectedOwner.set(null);
     this.displayModal.set(true);
   }
 
-  openEdit(site: IOwner) {
-    this.selectedSite.set(site);
+  openEdit(owner: IOwner) {
+    this.selectedOwner.set(owner);
     this.displayModal.set(true);
   }
 
-  handleSave(site: IOwner) {
+  handleSave(owner: IOwner) {
     let request;
     if (this.isEdit()) {
-      const { id, name, active } = site;
-      request = this.ownerService.update(id, { name, active });
+      const { id, fullName, active } = owner;
+      request = this.ownerService.update(id, { name: fullName, active });
     } else {
-      const { name } = site;
-      request = this.ownerService.create({ name });
+      const { fullName } = owner;
+      request = this.ownerService.create({ name: fullName });
     }
     // Aquí llamas a tu ownerService (POST o PUT
     request.subscribe({
@@ -60,7 +60,7 @@ export class Owners {
     console.log(id);
     this.confirmationService.confirm({
       message: 'Do you want to delete this record?',
-      header: 'Delete site',
+      header: 'Delete Dev',
       acceptLabel: 'Delete',
       acceptIcon: 'pi pi-info-circle',
       severity: 'danger',

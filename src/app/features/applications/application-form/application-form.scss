@@ -1,0 +1,50 @@
+:host ::v-deep {
+
+    /* Altura fija REAL del stepper */
+    .p-stepper {
+        height: 600px; /* Ajusta a lo que necesites */
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Lista de steps arriba */
+    .p-stepper-header {
+        flex: 0 0 auto;
+    }
+
+    /* Contenedor de panels */
+    .p-stepper-panels {
+        flex: 1 1 auto;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    /* Cada panel ocupa todo el espacio */
+    .p-step-panel {
+        flex: 1 1 100%;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    /* Área scrolleable */
+    .step-content-container {
+        flex: 1 1 auto;
+        overflow-y: auto;
+        padding-right: 0.5rem;
+    }
+
+    /* Footer fijo abajo */
+    .step-footer {
+        flex: 0 0 auto;
+        border-top: 1px solid var(--surface-border);
+        padding-top: 1.5rem;
+        margin-top: 1rem;
+    }
+
+    .fadein {
+        animation: fadeIn 0.3s ease-in-out;
+    }
+}

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Applications } from './applications';
+import { ApplicationTable } from './application-table';
 
-describe('Applications', () => {
-  let component: Applications;
-  let fixture: ComponentFixture<Applications>;
+describe('ApplicationTable', () => {
+  let component: ApplicationTable;
+  let fixture: ComponentFixture<ApplicationTable>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Applications]
+      imports: [ApplicationTable]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Applications);
+    fixture = TestBed.createComponent(ApplicationTable);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
@@ -20,7 +20,4 @@ describe('Applications', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  
-
 });

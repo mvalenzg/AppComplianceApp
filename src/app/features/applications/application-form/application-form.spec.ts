@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Applications } from './applications';
+import { ApplicationForm } from './application-form';
 
-describe('Applications', () => {
-  let component: Applications;
-  let fixture: ComponentFixture<Applications>;
+describe('ApplicationForm', () => {
+  let component: ApplicationForm;
+  let fixture: ComponentFixture<ApplicationForm>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Applications]
+      imports: [ApplicationForm]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Applications);
+    fixture = TestBed.createComponent(ApplicationForm);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
@@ -20,7 +20,4 @@ describe('Applications', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  
-
 });

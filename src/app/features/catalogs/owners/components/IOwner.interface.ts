@@ -1,5 +1,5 @@
 export interface IOwner {
   id: string;
-  name: string;
+  fullName: string;
   active: boolean;
 }

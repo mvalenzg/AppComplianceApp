@@ -1,0 +1,341 @@
+<form [formGroup]="appForm" (ngSubmit)="onSubmit()">
+  <p-stepper [value]="1">
+    <p-step-list>
+      <p-step [value]="1">General</p-step>
+      <p-step [value]="2">Documentation</p-step>
+      <p-step [value]="3">CI/CD</p-step>
+      <p-step [value]="4">Notes</p-step>
+      <p-step [value]="5">Summary</p-step>
+    </p-step-list>
+    <p-step-panels>
+      <p-step-panel [value]="1">
+        <ng-template #content let-activateCallback="activateCallback">
+          <div class="step-content-container flex flex-col h-48">
+            <div
+              class="rounded bg-surface-50 dark:bg-surface-950 flex-auto flex flex-column justify-center items-center font-medium gap-2"
+            >
+              <div>
+                <p-floatlabel variant="on">
+                  <input pInputText id="name" formControlName="name" class="w-full" />
+                  <label for="name">Application Name</label>
+                </p-floatlabel>
+                @if (appForm.get('name')?.invalid && appForm.get('name')?.touched) {
+                  <small class="text-red-500 ml-2">Name is required (max 100 chars).</small>
+                }
+              </div>
+
+              <div>
+                <p-floatlabel variant="on">
+                  <p-select
+                    formControlName="siteId"
+                    inputId="site"
+                    [options]="sites()"
+                    optionLabel="name"
+                    optionValue="id"
+                    class="w-full"
+                    [filter]="true"
+                    [showClear]="true"
+                  />
+                  <label for="site">Site</label>
+                </p-floatlabel>
+                @if (appForm.get('siteId')?.invalid && appForm.get('siteId')?.touched) {
+                  <small class="text-red-500 ml-2">Please select a site.</small>
+                }
+              </div>
+
+              <div>
+                <p-floatlabel variant="on">
+                  <p-select
+                    formControlName="ownerId"
+                    inputId="owner"
+                    [options]="owners()"
+                    optionLabel="fullName"
+                    optionValue="id"
+                    class="w-full"
+                    [filter]="true"
+                    [showClear]="true"
+                  />
+                  <label for="owner">Dev</label>
+                </p-floatlabel>
+              </div>
+
+              <div>
+                <p-checkBox formControlName="hasRepo" inputId="hasRepo" binary="true" />
+                <label for="owner">Has Repository?</label>
+              </div>
+              @if (appForm.get('hasRepo')?.value) {
+                <div class="mt-3">
+                  <p-floatlabel variant="on" class="mt-2 fadein animation-duration-1000">
+                    <input pInputText id="repoUrl" formControlName="repoUrl" class="w-full" />
+                    <label for="repoUrl">Repo URL (GitHub/Azure)</label>
+                  </p-floatlabel>
+                  @if (appForm.get('repoUrl')?.invalid && appForm.get('repoUrl')?.touched) {
+                    <small class="text-red-500">A valid URL is required.</small>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+          <div class="step-footer flex gap-3 justify-content-end">
+            <p-button
+              label="Next"
+              (onClick)="activateCallback(2)"
+              [disabled]="
+                appForm.get('name')?.invalid ||
+                appForm.get('siteId')?.invalid ||
+                appForm.get('ownerId')?.invalid ||
+                (appForm.get('hasRepo')?.value && appForm.get('repoUrl')?.invalid)
+              "
+            />
+          </div>
+        </ng-template>
+      </p-step-panel>
+      <p-step-panel [value]="2">
+        <ng-template #content let-activateCallback="activateCallback">
+          <div class="step-content-container flex flex-col h-48">
+            <div
+              class="rounded bg-surface-50 dark:bg-surface-950 flex-auto flex flex-column justify-center items-center font-medium gap-2"
+            >
+              <div class="flex flex-row gap-3">
+                <div>
+                  <p-floatlabel variant="on">
+                    <p-select
+                      formControlName="hasBrd"
+                      inputId="hasBrd"
+                      [options]="appOptions"
+                      optionLabel="label"
+                      optionValue="value"
+                      class="w-full"
+                    />
+                    <label for="owner">BRD?</label>
+                  </p-floatlabel>
+                </div>
+                <div>
+                  <p-floatlabel variant="on">
+                    <p-select
+                      formControlName="hasFsd"
+                      inputId="hasFsd"
+                      [options]="appOptions"
+                      optionLabel="label"
+                      optionValue="value"
+                      class="w-full"
+                    />
+                    <label for="owner">FSD?</label>
+                  </p-floatlabel>
+                </div>
+                <div>
+                  <p-floatlabel variant="on">
+                    <p-select
+                      formControlName="hasTsd"
+                      inputId="hasTsd"
+                      [options]="appOptions"
+                      optionLabel="label"
+                      optionValue="value"
+                      class="w-full"
+                    />
+                    <label for="owner">TSD?</label>
+                  </p-floatlabel>
+                </div>
+              </div>
+              <div class="mt-3">
+                <p-floatlabel variant="on">
+                  <input
+                    pInputText
+                    id="documentationUrl"
+                    formControlName="documentationUrl"
+                    class="w-full"
+                  />
+                  <label for="documentationUrl">Documents Folder URL</label>
+                </p-floatlabel>
+                @if (
+                  appForm.get('documentationUrl')?.invalid &&
+                  appForm.get('documentationUrl')?.touched
+                ) {
+                  <small class="text-red-500">URL is required if you have documentation.</small>
+                }
+              </div>
+            </div>
+          </div>
+          <div class="step-footer flex gap-3 justify-content-end">
+            <p-button label="Back" severity="secondary" (onClick)="activateCallback(1)" />
+            <p-button
+              label="Next"
+              (onClick)="activateCallback(3)"
+              [disabled]="appForm.get('documentationUrl')?.invalid"
+            />
+          </div>
+        </ng-template>
+      </p-step-panel>
+      <p-step-panel [value]="3">
+        <ng-template #content let-activateCallback="activateCallback">
+          <div class="step-content-container flex flex-col h-48">
+            <div
+              class="rounded bg-surface-50 dark:bg-surface-950 flex-auto flex flex-column justify-center items-center font-medium gap-2"
+            >
+              <div class="gap-3 flex flex-column justify-content-between">
+                <div>
+                  <p-floatlabel variant="on">
+                    <p-select
+                      formControlName="hasPipeLine"
+                      inputId="hasPipeLine"
+                      [options]="appOptions"
+                      optionLabel="label"
+                      optionValue="value"
+                      class="w-full"
+                    />
+                    <label for="owner">Has Pipeline?</label>
+                  </p-floatlabel>
+                </div>
+                <div>
+                  <p-floatlabel variant="on">
+                    <p-select
+                      formControlName="hasAutomaticDeploys"
+                      inputId="hasAutomaticDeploys"
+                      [options]="appOptions"
+                      optionLabel="label"
+                      optionValue="value"
+                      class="w-full"
+                    />
+                    <label for="owner">Has Automatic Deploys?</label>
+                  </p-floatlabel>
+                </div>
+                <div>
+                  <p-floatlabel variant="on">
+                    <p-select
+                      formControlName="hasSonar"
+                      inputId="hasSonar"
+                      [options]="appOptions"
+                      optionLabel="label"
+                      optionValue="value"
+                      class="w-full"
+                    />
+                    <label for="owner">Has SonarQube?</label>
+                  </p-floatlabel>
+                </div>
+              </div>
+              @if (appForm.get('hasSonar')?.value === 2) {
+                <div class="mt-3">
+                  <p-floatlabel variant="on" class="fadein animation-duration-1000">
+                    <input pInputText id="sonasUrl" formControlName="sonasUrl" class="w-full" />
+                    <label for="sonasUrl">SonarQube Project URL</label>
+                  </p-floatlabel>
+                  @if (appForm.get('sonasUrl')?.invalid && appForm.get('sonasUrl')?.touched) {
+                    <small class="text-red-500">Sonar URL is required.</small>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+          <div class="py-6 flex flex-auto items-center justify-content-end gap-3">
+            <p-button label="Back" severity="secondary" (onClick)="activateCallback(2)" />
+            <p-button
+              label="Next"
+              (onClick)="activateCallback(4)"
+              [disabled]="appForm.get('sonasUrl')?.invalid"
+            />
+          </div>
+        </ng-template>
+      </p-step-panel>
+      <p-step-panel [value]="4">
+        <ng-template #content let-activateCallback="activateCallback">
+          <div class="step-content-container flex flex-col h-48">
+            <div
+              class="rounded bg-surface-50 dark:bg-surface-950 flex-auto flex flex-column justify-center items-center font-medium gap-2"
+            >
+              <div>
+                <p-floatlabel variant="on">
+                  <textarea
+                    pTextarea
+                    id="notes"
+                    formControlName="notes"
+                    rows="5"
+                    cols="30"
+                    style="resize: none"
+                    class="h-full w-full"
+                  ></textarea>
+                  <label for="notes" class="font-bold">Additional Notes</label>
+                </p-floatlabel>
+              </div>
+            </div>
+          </div>
+          <div class="step-footer flex gap-3 justify-content-end">
+            <p-button label="Back" severity="secondary" (onClick)="activateCallback(3)" />
+            <p-button label="Review Summary" (onClick)="activateCallback(5)" />
+          </div>
+        </ng-template>
+      </p-step-panel>
+      <p-step-panel [value]="5">
+        <ng-template #content let-activateCallback="activateCallback">
+          <div class="step-content-container flex flex-col h-48">
+            <div
+              class="bg-surface-50 dark:bg-surface-900 rounded-lg border border-surface-200 flex flex-column justify-content-center"
+            >
+              <div class="text-center">
+                <h3 class="text-xl font-bold mb-4">Application Summary</h3>
+              </div>
+              <div class="text-sm">
+                <div class="flex flex-row gap-2 justify-content-center">
+                  <p><strong>Name:</strong> {{ appForm.get('name')?.value }}</p>
+                  <p><strong>Site:</strong> {{ getSiteName(appForm.get('siteId')?.value!) }}</p>
+                  <p><strong>Owner:</strong> {{ getOwnerName(appForm.get('ownerId')?.value!) }}</p>
+                  <p>
+                    <strong>Repo:</strong>
+                    @if (appForm.get('hasRepo')?.value) {
+                      <a href="{{ appForm.get('repoUrl')?.value! }}">{{
+                        appForm.get('name')?.value
+                      }}</a>
+                    } @else {
+                      No
+                    }
+                  </p>
+                </div>
+                <div class="flex flex-row gap-2 justify-content-center">
+                  <p>
+                    <strong>Documentation:</strong>
+                    @if (appForm.get('documentationUrl')?.value) {
+                      <a href="{{ appForm.get('documentationUrl')?.value! }}">{{
+                        appForm.get('name')?.value
+                      }}</a>
+                    } @else {
+                      N/A
+                    }
+                  </p>
+                  <p>
+                    <strong>SonarQube:</strong> {{ appForm.get('hasSonar')?.value ? 'Yes' : 'No' }}
+                  </p>
+                  <p>
+                    <strong>SonarQube Url:</strong>
+                    @if (appForm.get('sonasUrl')?.value) {
+                      <a href="{{ appForm.get('sonasUrl')?.value! }}">{{
+                        appForm.get('name')?.value
+                      }}</a>
+                    } @else {
+                      N/A
+                    }
+                  </p>
+                  <p class="col-span-2">
+                    <strong>Notes:</strong> {{ appForm.get('notes')?.value || 'No notes added.' }}
+                  </p>
+                </div>
+              </div>
+              <div>
+                <i class="pi pi-info-circle mr-2"></i>
+                Please verify all information before creating the application.
+              </div>
+            </div>
+          </div>
+          <div class="step-footer flex gap-3 justify-content-end">
+            <p-button label="Back" severity="secondary" (onClick)="activateCallback(4)" />
+            <p-button
+              label="Create Application"
+              icon="pi pi-check"
+              severity="success"
+              (onClick)="onSubmit()"
+              [disabled]="appForm.invalid"
+            />
+          </div>
+        </ng-template>
+      </p-step-panel>
+    </p-step-panels>
+  </p-stepper>
+</form>

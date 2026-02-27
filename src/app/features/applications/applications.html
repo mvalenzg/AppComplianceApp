@@ -1,1 +1,36 @@
-<p>applications works!</p>
+<div class="flex flex-row justify-content-between">
+  <h1>Applications</h1>
+  <p-button
+    icon="pi pi-plus"
+    severity="primary"
+    [rounded]="true"
+    [text]="true"
+    [raised]="true"
+    (onClick)="openCreate()"
+  />
+</div>
+@defer (when !appResource.isLoading()) {
+  <app-application-table
+    [sites]="appResource.value()"
+    [loading]="appResource.isLoading()"
+    (onDelete)="handleDelete($event)"
+    (onEdit)="openEdit($event)"
+  ></app-application-table>
+} @placeholder {
+  <div class="p-4">loading...</div>
+}
+<span>{{ appResource.error() }}</span>
+
+<p-dialog
+  [(visible)]="displayModal"
+  [header]="isEdit() ? 'Edit Application' : 'New Application'"
+  [ariaModal]="true"
+  [style]="{ width: '65rem' }"
+  [contentStyle]="{ height: '450px', overflow: 'hidden' }"
+>
+  <app-application-form
+    [data]="selectedApp()"
+    (onSave)="handleSave($event)"
+    (onCancel)="displayModal.set(false)"
+  ></app-application-form>
+</p-dialog>
